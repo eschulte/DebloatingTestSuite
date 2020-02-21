@@ -5,7 +5,17 @@ matrix:
     dist: bionic
     compiler: gcc
     arch: amd64
-    env: TPCP_OPTIONS=amd64_linux_gcc_o0
+    env: TPCP_OPTIONS=amd64_linux_gcc
+  - os: linux
+    dist: bionic
+    compiler: clang
+    arch: amd64
+    env: TPCP_OPTIONS=amd64_linux_clang
+  - os: linux
+    dist: bionic
+    compiler: gcc
+    arch: arm64
+    env: TPCP_OPTIONS=arm64_linux_gcc
     
 before_install:
 - export CMAKE_OPTIONS=${CMAKE_OPTIONS}" "${ENV_CMAKE_OPTIONS}
