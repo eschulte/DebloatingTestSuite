@@ -1,3 +1,6 @@
 [submodule "sqlite"]
 	path = sqlite
 	url = https://github.com/sqlite/sqlite.git
+[submodule "coreutils"]
+	path = coreutils
+	url = https://github.com/tpcp-project/coreutils.git
