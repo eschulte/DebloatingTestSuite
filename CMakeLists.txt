@@ -1,7 +1,7 @@
 # This is a master cmake script that will build all subprojects
 # to produce a master list of binary test cases for ONR TPCP
 # debloating research projects.
-cmake_minimum_required (VERSION 3.12)
+cmake_minimum_required (VERSION 3.10)
 project (ONR_TPCP_TEST_SUITE)
 
 # Submodules are built using ExternalProject
