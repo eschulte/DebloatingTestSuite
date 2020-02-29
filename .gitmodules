@@ -10,3 +10,9 @@
 [submodule "tinype"]
 	path = tinype
 	url = https://github.com/tpcp-project/tinype.git
+[submodule "poppler"]
+	path = poppler
+	url = https://github.com/tpcp-project/poppler.git
+[submodule "libarchive"]
+	path = libarchive
+	url = https://github.com/tpcp-project/libarchive.git
