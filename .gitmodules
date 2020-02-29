@@ -7,3 +7,6 @@
 [submodule "tar"]
 	path = tar
 	url = https://github.com/tpcp-project/tar.git
+[submodule "tinype"]
+	path = tinype
+	url = https://github.com/tpcp-project/tinype.git
