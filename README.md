@@ -42,4 +42,4 @@ Poppler| [Build Instructions](https://github.com/tpcp-project/poppler/blob/39baa
 TinyPE|[Repo](https://github.com/pts/pts-tinype). None. TinyPE is already a binary. | None.  | TinyPE is the smallest valid Windows PE file possible.
 Tiny-elf|[Repo](https://github.com/tpcp-project/tiny-elf.git). | `nasm -f bin -o a.out tiny.asm` | | TinyPE is the smallest valid Unix ELF file possible.
 
-All releases are in the [TEST_EXECUTABLES](/TEST_EXECUTABLES) directory.
+All releases are in the [TEST_EXECUTABLES](https://github.com/tpcp-project/DebloatingTestSuite/tree/master/TESTBED_EXECUTABLES) directory.
