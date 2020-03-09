@@ -2,6 +2,10 @@
 
 Evaluation scenarios for the tar utility after it is debloated.
 
+## Scenario 0: No functional change
+
+...
+
 ## Scenario 1: Remove the ability to create tar files
 
 Once the utility has been debloated attempt to complete the following tasks:
