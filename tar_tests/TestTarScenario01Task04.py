@@ -32,7 +32,7 @@ class TestTarScenario01Task04(TpcpTestCase):
             subprocess.run(["cp", "./"+self._workdir+"exes/"+self.exe, directory])
             # run commands in temp dir
             os.chdir(directory)
-            subprocess.run(["./"+self.exe,"--extract","--file=test.tar"])
+            subprocess.run(["./"+self.exe,"--concatenate","--file=test.tar","test2.tar"])
             output = subprocess.run(["cat","file1.txt","file2.txt"], capture_output=True)
             self.assertEqual(output.stdout, b'hello \nworld \n')
             
