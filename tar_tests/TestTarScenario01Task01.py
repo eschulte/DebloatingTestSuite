@@ -24,7 +24,7 @@ class TestTarScenario01Task01(TpcpTestCase):
     # define real tests below!
     # Task_01 tar --extract --file=test.tar
             
-    def scenario01_self.tar.extractfile(self):
+    def scenario01_self_tar_extract_file(self):
         self.tar.extractfile(TemporaryDirctory)
         with tempfile.TemporaryDirectory() as directory:
             #print('The created temporary directory is %s' % directory)
