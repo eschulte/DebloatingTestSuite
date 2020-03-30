@@ -22,8 +22,9 @@ class TestTarScenario01Task10(TpcpTestCase):
         os.chdir(self._originaldir)
         
     # define real tests below!
+    # Test_10 tar --compare --file=test.tar [FILE] $ tar --diff --file=test.tar [FILE]
             
-    def scenario01_task05(self):
+    def scenario01_task10(self):
         with tempfile.TemporaryDirectory() as directory:
             #print('The created temporary directory is %s' % directory)
             # copy files to temp dir
