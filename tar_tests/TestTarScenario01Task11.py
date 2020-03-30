@@ -22,8 +22,9 @@ class TestTarScenario01Task11(TpcpTestCase):
         os.chdir(self._originaldir)
         
     # define real tests below!
+    # Test_11 tar --delete --file=test.tar Hello.txt
             
-    def scenario01_task05(self):
+    def scenario01_task11(self):
         with tempfile.TemporaryDirectory() as directory:
             #print('The created temporary directory is %s' % directory)
             # copy files to temp dir
