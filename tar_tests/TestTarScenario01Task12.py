@@ -32,6 +32,6 @@ class TestTarScenario01Task12(TpcpTestCase):
             subprocess.run(["cp", "./"+self._workdir+"exes/"+self.exe, directory])
             # run commands in temp dir
             os.chdir(directory)
-            subprocess.run(["./"+self.exe,"--create","--file=test.tar","file1.txt","file2.txt"])
+            subprocess.run(["./"+self.exe,"--create","--delete --file","file1.txt","file2.txt"])
             output = subprocess.run(["cat","file1.txt","file2.txt"], capture_output=True)
             self.assertEqual(output.stdout, b'hello \nworld \n')
