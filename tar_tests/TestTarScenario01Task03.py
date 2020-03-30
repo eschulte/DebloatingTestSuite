@@ -23,6 +23,7 @@ class TestTarScenario01Task03(TpcpTestCase):
         os.chdir(self._originaldir)
         
     # define real tests below!
+    # Test_03 tar -list --file=test.tar
             
     def scenario01_task03(self):
         with tempfile.TemporaryDirectory() as directory:
