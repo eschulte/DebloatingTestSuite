@@ -5,7 +5,7 @@ import tempfile
 
 from pytestbed.UnitTest import TpcpTestCase
 
-class TestTarScenario01Task05(TpcpTestCase):
+class TestTarScenario01Task12(TpcpTestCase):
     
     @classmethod
     def setUpClass(cls):
