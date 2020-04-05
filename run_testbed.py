@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-import configparser
-
 import unittest
 from unittest.signals import registerResult
 
@@ -15,26 +13,20 @@ import argparse
 import subprocess
 
 from pytestbed.UnitTest import TpcpTestCase, TpcpTestResult, TpcpTestRunner
-from tar_tests.TarTests import TestTarScenario1
+from tar_tests import *
+import tar_tests
 
-###
-# store config in an easily editable .ini file.
-# Performers would update this to point path at the
-# path to their tool command.
-#
-# see:
-# https://docs.python.org/3/library/configparser.html
-###
-def get_config():
-    config = configparser.ConfigParser()
+import inspect
 
-    readlist = config.read('testing.ini')
-    if readlist == []:
-        config['tool'] = {'path': '/usr/bin/cp'}
-        with open('testing.ini', 'w') as configfile:
-            config.write(configfile)
-            
-    return config
+def get_loaded_test_classes():
+    loaded = []
+    for name, obj in inspect.getmembers(sys.modules[__name__]):
+        print(name, obj)
+        if inspect.isclass(obj) and obj.__name__.startswith('Test'):
+            loaded.append(obj)
+            print(name)
+    print(loaded)
+    return loaded
 
 
 ###
@@ -42,24 +34,33 @@ def get_config():
 ###
 
 def process_cmdline():
-    parser = argparse.ArgumentParser(description='TPCP Testbed Runner Tool')
-    parser.add_argument('--version', action='version', version='run_testbed v0.1')
-    parser.add_argument('--exclude', action='append', help='exclude a specific testcase from the testbed run')
+    version_txt = 'TPCP Testbed Runner Tool v0.2'
+    parser = argparse.ArgumentParser(description=version_txt)
+    parser.add_argument('--version', action='version', version='run_testbed.py --- '+version_txt)
+    
+    parser.add_argument('--tar', action='store', dest='tar_path', metavar='PATH', default=argparse.SUPPRESS, help='run tar tests on executable(s) at PATH')
     
     args = parser.parse_args()
-    return args
+    # returns a dict of the args set
+    return vars(args)
 
 ###
 # Next actually run the tests
 ###
 
 if __name__ == '__main__':
-    config = get_config()
-    # run the tool automatically to generate 'debloated' executables
-    #subprocess.run(["config['tool']['path']"], capture_output=True)
-    # run the tests on the tool results
-    suite = unittest.TestSuite()
-    for executable in os.listdir(os.getcwd()+'/tar_tests/exes/'):
-        suite.addTest(TpcpTestCase.parametrize(TestTarScenario1, exe=executable))
-    TpcpTestRunner(verbosity=2).run(suite)
-    #unittest.main(testRunner=TpcpTestRunner)
+    args = process_cmdline()
+        
+    for path in [args[key] for key in args if '_path' in key]:
+        # run the tool automatically to generate 'debloated' executables
+        #subprocess.run(["config['tool']['path']"], capture_output=True)
+        # run the tests on the tool results
+        suite = unittest.TestSuite()
+        unittest.defaultTestLoader.discover('.tar_tests', pattern='TestTarTask*.py', top_level_dir=None)
+        for pymodulename in get_loaded_test_classes():
+            print(pymodulename)
+            for executable in os.listdir(path):
+                print(executable)
+                suite.addTest(TpcpTestCase.parametrize(pymodulename, exe=executable))
+        TpcpTestRunner(verbosity=2).run(suite)
+        #unittest.main(testRunner=TpcpTestRunner)

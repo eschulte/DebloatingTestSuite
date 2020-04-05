@@ -34,7 +34,7 @@ class TpcpTestCase(unittest.TestCase):
     """ A specialized TestCase that allows setting a specific
         executable to test as a class parameter.
     """
-    def __init__(self, methodName='runTest', exe=None):
+    def __init__(self, methodName, exe=None):
         super(TpcpTestCase, self).__init__(methodName)
         # exe saves the name of the debloated executable file to run
         self.exe = exe
@@ -44,8 +44,10 @@ class TpcpTestCase(unittest.TestCase):
         """ Create a suite containing all tests taken from the given
             subclass, passing them the parameter 'exe'.
         """
-        testloader = unittest.TestLoader()
+        testloader = unittest.defaultTestLoader
         testnames = testloader.getTestCaseNames(cls)
+        print(cls)
+        print(testnames)
         suite = unittest.TestSuite()
         for name in testnames:
             suite.addTest(cls(name, exe=exe))

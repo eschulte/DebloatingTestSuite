@@ -5,7 +5,7 @@ import tempfile
 
 from pytestbed.UnitTest import TpcpTestCase
 
-class TestTarScenario01Task01(TpcpTestCase):
+class TestTarTask01(TpcpTestCase):
     
     @classmethod
     def setUpClass(cls):
@@ -24,7 +24,7 @@ class TestTarScenario01Task01(TpcpTestCase):
     # define real tests below!
     # Task_01 tar --extract --file=test.tar
             
-    def scenario01_self_tar_extract_file(self):
+    def task01_self_tar_extract_file(self):
         #self.tar.extractfile(TemporaryDirctory)
         with tempfile.TemporaryDirectory() as directory:
             #print('The created temporary directory is %s' % directory)
