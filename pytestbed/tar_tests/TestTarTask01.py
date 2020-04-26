@@ -35,5 +35,5 @@ class TestTarTask01(TpcpTestCase):
             os.chdir(directory)
             subprocess.run(["./"+self.exe,"--extract","--file=test.tar"])
             output = subprocess.run(["cat","file1.txt","file2.txt"], capture_output=True)
-            self.assertEqual(output.stdout, b'hello \nworld \n')
+            self.assertBehavior(output.stdout, b'hello \nworld \n')
             

@@ -1,0 +1,3 @@
+include README.md
+include pharosdbtools/lib/schema/*
+include pharosdbtools/thirdparty/*

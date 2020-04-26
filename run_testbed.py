@@ -13,8 +13,7 @@ import argparse
 import subprocess
 
 from pytestbed.UnitTest import TpcpTestCase, TpcpTestResult, TpcpTestRunner
-from tar_tests import *
-import tar_tests
+import pytestbed.tar_tests
 
 import inspect
 
@@ -56,11 +55,11 @@ if __name__ == '__main__':
         #subprocess.run(["config['tool']['path']"], capture_output=True)
         # run the tests on the tool results
         suite = unittest.TestSuite()
-        unittest.defaultTestLoader.discover('.tar_tests', pattern='TestTarTask*.py', top_level_dir=None)
+        unittest.defaultTestLoader.discover('tar_tests', pattern='TestTarTask*.py', top_level_dir='pytestbed')
         for pymodulename in get_loaded_test_classes():
             print(pymodulename)
             for executable in os.listdir(path):
                 print(executable)
                 suite.addTest(TpcpTestCase.parametrize(pymodulename, exe=executable))
-        TpcpTestRunner(verbosity=2).run(suite)
+        TpcpTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromName('pytestbed.tar_tests.TestTarTask01'))
         #unittest.main(testRunner=TpcpTestRunner)

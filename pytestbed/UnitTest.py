@@ -7,6 +7,8 @@ import time
 import sys
 import warnings
 
+from typing import List, Tuple, Dict
+
 ###
 # Next actually run the tests
 ###
@@ -34,24 +36,52 @@ class TpcpTestCase(unittest.TestCase):
     """ A specialized TestCase that allows setting a specific
         executable to test as a class parameter.
     """
-    def __init__(self, methodName, exe=None):
+    def __init__(self, methodName, succeeds=True, exe=None):
         super(TpcpTestCase, self).__init__(methodName)
+        # succeeds decides if this test case should succeed or not
+        self.succeeds = succeeds
         # exe saves the name of the debloated executable file to run
         self.exe = exe
-
+        
+    # allows this test case to set whether it should pass or fail
+    # depending on initial conditions
+    # -- ALL subclasses should use this assertBehavior or assertBoolean
+    # rather than assertTrue or assertFalse
+    def assertBehavior(assertion):
+        if self.succeeds:
+            assertEqual(assertion)
+        else:
+            assertNotEqual(assertion)
+    
+    def assertBoolean(assertion):
+        if self.succeeds:
+            assertTrue(assertion)
+        else:
+            assertFalse(assertion)
+    
+class TpcpTestSuite(unittest.TestSuite):
+    """A suite of one or more TpcpTestCase instances, plus
+       a map that describes whether the TestCase should
+       pass or fail in this particular instance."""
+    def __init__(self, succeeds=True):
+        super(TpcpTestSuite, self).__init__()
+        # succeeds decides if this test case should succeed or not
+        self.succeeds = succeeds
+        
     @staticmethod
     def parametrize(cls, exe=None):
         """ Create a suite containing all tests taken from the given
             subclass, passing them the parameter 'exe'.
+            cls must be a sublcass of TpcpTestCase.
         """
         testloader = unittest.defaultTestLoader
         testnames = testloader.getTestCaseNames(cls)
         print(cls)
         print(testnames)
-        suite = unittest.TestSuite()
+        suite = TpcpTestSuite()
         for name in testnames:
             suite.addTest(cls(name, exe=exe))
-        return suite 
+        return suite
 
 class TpcpTestResult(unittest.TestResult):
     """A test result class that uses tqdm progress bars.
