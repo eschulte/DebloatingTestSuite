@@ -1,4 +1,5 @@
 
+from pytestbed.TpcpUnitTest import TpcpTestCase, TpcpTestSuite
 import unittest
 
 # TODO: is there a way to automatically import scenario classes?
@@ -9,8 +10,8 @@ import unittest
 #from tar_tests.TestTarScenario01Task04 import TestTarScenario01Task04
 #from tar_tests.TestTarScenario01Task05 import TestTarScenario01Task05
 
-def load_tests():
-    suite = unittest.TestSuite()
+def load_tests(path):
+    suite = TpcpTestSuite(path)
     return suite
 
 
