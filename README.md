@@ -12,14 +12,11 @@ configurability.
 ./run_testbed.py [[--TESTNAME PATH] ...]
 ```
 where "TESTNAME" is the name of the executable to test. This name
-matches the name of the git submodule you wish to test.
+generally matches the name of the git submodule you wish to test.
 
-Each TESTNAME takes a PATH as an option. The path is either to a single
+Each TESTNAME takes a PATH as an option. The path is a full path to a single
 executable file (to run the tests against a single executable of user's
-choice), or a path to a directory containing more than one executable the
-user wishes to run the testbed against. If the path is to a directory, the
-script assumes every file in the given directory is an executable is a
-debloated version of the same executable.
+choice).
 
 You could run more than one testbed at a time if preferred. Each testbed
 gets its own path to executables.
@@ -52,7 +49,11 @@ and/or cmake build configuration information to produce executables for
 the various operating systems, architectures, etc., listed in the previous
 section.
 
-The actual test cases are stored in directory in this repository named based
+Most of the python logic is in the `pytestbed` directory.
+A number of specialized subclasses of `unittest` standard classes are included,
+and all begin with `Tpcp` prefix.
+
+The actual test cases are stored in a subdirectory of `pytestbed` based
 on the name of the submodule by appending "_tests" to the submodule name.
 For example `tar` submodule has a related `tar_tests` directory that contains
 all of the debloating tests for tar.
@@ -61,6 +62,15 @@ Within each `_tests` directory, there is an `exes` subdirectory that contains
 a number of pre-built executables from Travis CI as described above.
 Users can take the executables in the `exes` subdirectory and apply
 debloating tools to produce debloated test cases to run this test suite on.
+
+The unit tests in each `_tests` directory are defined by classes that start
+with the word `Test`. These are subclasses of the `Tpcp` test class.
+They must be instantiated with two parameters, a "success" toggle that
+determines if the test should pass or not (to accomodate tests expected
+to fail when an executable is "debloated"), and a path to an executable
+to be used for testing. Individual tests are collected into test suites,
+which we call "scenarios", that have a pre-set "success" toggle of each
+test to describe different "debloating" environments and scenarios.
 
 ## Test Cases ##
 
