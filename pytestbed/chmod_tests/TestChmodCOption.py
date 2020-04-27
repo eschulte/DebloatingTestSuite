@@ -27,19 +27,19 @@ class TestChmodCOption(TpcpTestCase):
     ### define real tests below!
     
     # based on 'c-option.sh' in coreutils/tests/chmod
-    def chmod_coption(self):
+    def runTest(self):
         # run commands in temp dir
-        os.chdir(directory)
+        os.chdir(self._tmpdir.name)
         # create temp file
-        subprocess.run(["touch", self._tmpdir+"f.test"])
-        subprocess.run(["./"+self.exe,"444","f.test"])
-        subprocess.run(["./"+self.exe,"u=rwx","f.test"])
+        subprocess.run(["touch", "f.test"])
+        subprocess.run([self.exe,"444","f.test"])
+        subprocess.run([self.exe,"u=rwx","f.test"])
         # this command changes permissions from 0744 to 0774
-        output = subprocess.run(["./"+self.exe,"-c","g=rwx","f.test"], capture_output=True)
-        self.assertBehavior(output.stdout, b'mode of \'f\' changed from 0744 rwxr--r-- to 0774 rwxrwxr--')
+        output = subprocess.run([self.exe,"-c","g=rwx","f.test"], capture_output=True)
+        self.assertBehavior(output.stdout, b'mode of \'f.test\' changed from 0744 (rwxr--r--) to 0774 (rwxrwxr--)\n')
         # this command doesn't change permission, so should be no output
-        output = subprocess.run(["./"+self.exe,"-c","g=rwx","f.test"], capture_output=True)
-        self.assertBehavior(output.stdout, '')
-        print(subprocess.run(["ls","-l","f.test"], capture_output=True))
+        output = subprocess.run([self.exe,"-c","g=rwx","f.test"], capture_output=True)
+        self.assertBehavior(output.stdout, b'')
+        #print(subprocess.run(["ls","-l","f.test"], capture_output=True))
 
             

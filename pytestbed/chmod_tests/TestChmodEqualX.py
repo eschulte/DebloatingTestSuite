@@ -27,16 +27,23 @@ class TestChmodEqualX(TpcpTestCase):
     ### define real tests below!
     
     # based on 'equal-x.sh' in coreutils/tests/chmod
-    def chmod_coption(self):
+    def runTest(self):
         # run commands in temp dir
-        os.chdir(directory)
+        os.chdir(self._tmpdir.name)
         # create temp file
-        subprocess.run(["touch", self._tmpdir+"f.test"])
-        subprocess.run(["./"+self.exe,"444","f.test"])
+        old_mask = os.umask(0o005)
+        subprocess.run(["touch", "f.test"])
+        os.umask(old_mask)
+        #subprocess.run(["chmod","640","f.test"])
+        output = subprocess.run(["ls", "-l", "f.test"], capture_output=True)
+        #print(output.stdout)
         # check variations of =x
         for mode in ["=x", "=xX", "=Xx", "=x,=X", "=X,=x"]:
-            subprocess.run(["./"+self.exe,"a=r,"+mode,"f.test"])
+            old_mask = os.umask(0o005)
+            subprocess.run([self.exe,"a=r,"+mode,"f.test"])
+            os.umask(old_mask)
             output = subprocess.run(["ls", "-l", "f.test"], capture_output=True)
-            self.assertBoolean('---x--x---' in output.stdout)
+            #print(output.stdout)
+            self.assertBoolean(b'---x--x---' in output.stdout)
 
             

@@ -36,7 +36,7 @@ class TpcpTestCase(unittest.TestCase):
     """ A specialized TestCase that allows setting a specific
         executable to test as a class parameter.
     """
-    def __init__(self, methodName='run', succeeds=True, exe=None):
+    def __init__(self, methodName='runTest', succeeds=True, exe=None):
         super(TpcpTestCase, self).__init__(methodName)
         # succeeds decides if this test case should succeed or not
         self.succeeds = succeeds
@@ -47,17 +47,17 @@ class TpcpTestCase(unittest.TestCase):
     # depending on initial conditions
     # -- ALL subclasses should use this assertBehavior or assertBoolean
     # rather than assertTrue or assertFalse
-    def assertBehavior(assertion):
+    def assertBehavior(self, assertion1, assertion2):
         if self.succeeds:
-            assertEqual(assertion)
+            super().assertEqual(assertion1, assertion2)
         else:
-            assertNotEqual(assertion)
+            super().assertNotEqual(assertion1, assertion2)
     
-    def assertBoolean(assertion):
+    def assertBoolean(self, assertion):
         if self.succeeds:
-            assertTrue(assertion)
+            super().assertTrue(assertion)
         else:
-            assertFalse(assertion)
+            super().assertFalse(assertion)
     
 class TpcpTestSuite(unittest.TestSuite):
     """A suite of one or more TpcpTestCase instances, plus
