@@ -40,5 +40,6 @@ class TestChmodCOption(TpcpTestCase):
         # this command doesn't change permission, so should be no output
         output = subprocess.run(["./"+self.exe,"-c","g=rwx","f.test"], capture_output=True)
         self.assertBehavior(output.stdout, '')
+        print(subprocess.run(["ls","-l","f.test"], capture_output=True))
 
             
