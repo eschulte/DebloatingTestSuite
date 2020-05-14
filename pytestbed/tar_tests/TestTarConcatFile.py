@@ -7,7 +7,7 @@ from pytestbed.TpcpUnitTest import TpcpTestCase
 
 class TestTarConcatFile(TpcpTestCase):
     
-    @classmethod
+    @classmethod 
     def setUpClass(cls):
         cls._originaldir = os.getcwd()
         cls._workdir = 'tar_tests/'
