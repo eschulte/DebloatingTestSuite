@@ -15,7 +15,7 @@ class TestTarUpdateFile(TpcpTestCase):
         
     @classmethod
     def tearDownClass(cls):
-        # restore old working directory
+        # restore old working directory 
         os.chdir(cls._originaldir)
         # remove the tmpdir
         cls._tmpdir.cleanup()
