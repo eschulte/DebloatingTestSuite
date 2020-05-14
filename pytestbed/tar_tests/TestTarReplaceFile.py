@@ -18,7 +18,7 @@ class TestTarReplaceFile(TpcpTestCase):
         # restore old working directory
         os.chdir(cls._originaldir)
         # remove the tmpdir
-        cls._tmpdir.cleanup()
+        cls._tmpdir.cleanup() 
         
     def setUp(self):
         # reset dir, so we're not stuck in a non-existent temp dir
