@@ -11,4 +11,4 @@ def nocoptionScenario(path):
     suite = TpcpTestSuite()
     suite.addTest(TestChmodCOption(succeeds=False, exe=path))
     suite.addTest(TestChmodEqualX(succeeds=True, exe=path))
-    return suite 
+    return suite   
