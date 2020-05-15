@@ -5,12 +5,12 @@ import tempfile
 
 from pytestbed.TpcpUnitTest import TpcpTestCase
 
-class TestTarUpdateFile(TpcpTestCase):
+class TestTarCompareFile(TpcpTestCase):
     
     @classmethod
     def setUpClass(cls):
         cls._originaldir = os.getcwd()
-        cls._workdir = 'tar_tests/'
+        cls._workdir = 'pytestbed/tar_tests/'
         cls._tmpdir = tempfile.TemporaryDirectory()
         
     @classmethod
@@ -32,7 +32,8 @@ class TestTarUpdateFile(TpcpTestCase):
         # copy files to temp dir
         subprocess.run(["cp", "./"+self._workdir+"test.tar", self._tmpdir.name])
         subprocess.run(["cp", "./"+self._workdir+"file2.txt", self._tmpdir.name])
-        subprocess.run(["cat", "This is new file1 text", ">", self._tmpdir.name+"/file1.txt"])
+        with open(self._tmpdir.name+"/file1.txt", 'w') as f:
+            f.write("This is new file1 text")
         # run commands in temp dir
         os.chdir(self._tmpdir.name)
         # real test: concat and extract, then cat extracted files to check correct extraction

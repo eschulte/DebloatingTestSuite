@@ -10,7 +10,7 @@ class TestTarUpdateFile(TpcpTestCase):
     @classmethod
     def setUpClass(cls):
         cls._originaldir = os.getcwd()
-        cls._workdir = 'tar_tests/'
+        cls._workdir = 'pytestbed/tar_tests/'
         cls._tmpdir = tempfile.TemporaryDirectory()
         
     @classmethod
@@ -31,11 +31,12 @@ class TestTarUpdateFile(TpcpTestCase):
     def runTest(self):
         # copy files to temp dir
         subprocess.run(["cp", "./"+self._workdir+"test.tar", self._tmpdir.name])
-        subprocess.run(["cat", "This is new file1 text", ">", self._tmpdir.name+"/file1.txt"])
+        with open(self._tmpdir.name+"/file1.txt", 'w') as f:
+            f.write("This is new file1 text")
         # run commands in temp dir
         os.chdir(self._tmpdir.name)
         # real test: concat and extract, then cat extracted files to check correct extraction
-        subprocess.run(["./"+self.exe,"--update", "-f","test.tar","file1.txt"])
+        subprocess.run([self.exe,"--update", "-f","test.tar","file1.txt"])
         subprocess.run(["tar","--extract","--file=test.tar"])
         output = subprocess.run(["cat","file1.txt","file2.txt"], capture_output=True)
         self.assertBehavior(output.stdout, b'This is new file1 text\nworld \n')

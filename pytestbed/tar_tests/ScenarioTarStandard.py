@@ -11,7 +11,6 @@ from pytestbed.tar_tests.TestTarConcatFile import TestTarConcatFile
 from pytestbed.tar_tests.TestTarCreateFile import TestTarCreateFile
 from pytestbed.tar_tests.TestTarCreateDirFile import TestTarCreateDirFile
 from pytestbed.tar_tests.TestTarUpdateFile import TestTarUpdateFile
-from pytestbed.tar_tests.TestTarReplaceFile import TestTarReplaceFile
 from pytestbed.tar_tests.TestTarDeleteFile import TestTarDeleteFile
 from pytestbed.tar_tests.TestTarCompareFile import TestTarCompareFile
 
@@ -24,7 +23,6 @@ def standardScenario(path):
     suite.addTest(TestTarCreateFile(succeeds=True, exe=path))
     suite.addTest(TestTarCreateDirFile(succeeds=True, exe=path))
     suite.addTest(TestTarUpdateFile(succeeds=True, exe=path))
-    suite.addTest(TestTarReplaceFile(succeeds=True, exe=path))
     suite.addTest(TestTarDeleteFile(succeeds=True, exe=path))
     suite.addTest(TestTarCompareFile(succeeds=True, exe=path))
     return suite 

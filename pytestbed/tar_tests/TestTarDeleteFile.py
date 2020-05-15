@@ -10,7 +10,7 @@ class TestTarDeleteFile(TpcpTestCase):
     @classmethod
     def setUpClass(cls):
         cls._originaldir = os.getcwd()
-        cls._workdir = 'tar_tests/'
+        cls._workdir = 'pytestbed/tar_tests/'
         cls._tmpdir = tempfile.TemporaryDirectory()
         
     @classmethod
@@ -36,8 +36,8 @@ class TestTarDeleteFile(TpcpTestCase):
         # real test: concat and extract, then cat extracted files to check correct extraction
         subprocess.run([self.exe,"--delete","--file=test.tar","file1.txt"])
         subprocess.run(["tar","--extract","--file=test.tar"])
-        self.assertBoolean(not os.is_file(self._tmpdir.name + '/file1.txt'))
-        self.assertBoolean(os.is_file(self._tmpdir.name + '/file2.txt'))
+        self.assertBoolean(not os.path.isfile(self._tmpdir.name + '/file1.txt'))
+        self.assertBoolean(os.path.isfile(self._tmpdir.name + '/file2.txt'))
         output = subprocess.run(["cat","file2.txt"], capture_output=True)
         self.assertBehavior(output.stdout, b'world \n')
 

@@ -10,7 +10,7 @@ class TestTarCreateDirFile(TpcpTestCase):
     @classmethod
     def setUpClass(cls):
         cls._originaldir = os.getcwd()
-        cls._workdir = 'tar_tests/'
+        cls._workdir = 'pytestbed/tar_tests/'
         cls._tmpdir = tempfile.TemporaryDirectory()
         
     @classmethod
@@ -36,7 +36,7 @@ class TestTarCreateDirFile(TpcpTestCase):
         # run commands in temp dir
         os.chdir(self._tmpdir.name)
         # real test: create tar from a dir of files, extract, cat and check contents are same
-        subprocess.run([self.exe,"--create","--file","tmpfilesdir"])
+        subprocess.run([self.exe,"--create","--file","tmpfilesdir/"])
         subprocess.run(["tar","--extract","--file=test.tar"]) # use system tar since this isn't meant to test extract too
         output = subprocess.run(["cat","file1.txt","file2.txt"], capture_output=True)
         self.assertBehavior(output.stdout, b'hello \nworld \n')

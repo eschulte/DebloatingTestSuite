@@ -9,7 +9,7 @@ from pytestbed.tar_tests.ScenarioTarDisableCreateTarballs import disableCreating
 
 def load_tests(path):
     suite = standardScenario(path)
-    suite.addTest(disableCreatingTarballsScenario(path))
+    #suite.addTest(disableCreatingTarballsScenario(path))
     return suite
 
 

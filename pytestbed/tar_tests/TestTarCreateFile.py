@@ -10,7 +10,7 @@ class TestTarCreateFile(TpcpTestCase):
     @classmethod
     def setUpClass(cls):
         cls._originaldir = os.getcwd()
-        cls._workdir = 'tar_tests/'
+        cls._workdir = 'pytestbed/tar_tests/'
         cls._tmpdir = tempfile.TemporaryDirectory()
         
     @classmethod
