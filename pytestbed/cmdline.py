@@ -11,7 +11,7 @@ from pytestbed.TpcpUnitTest import TpcpTestCase, TpcpTestSuite, TpcpTestResult, 
 
 # TODO: add the test suites below manually as they are created,
 # unclear if there's a good way to do this automatically
-#import pytestbed.tar_tests
+import pytestbed.tar_tests
 import pytestbed.chmod_tests
 
 import unittest
@@ -53,8 +53,6 @@ def run_testbed():
         if option == 'chmod_path':
             suite = pytestbed.chmod_tests.load_tests(path)
         elif option == 'tar_path':
-            # TODO:
-            continue
             suite = pytestbed.tar_tests.load_tests(path)
         else:
             continue
