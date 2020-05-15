@@ -125,7 +125,7 @@ class TestTarExtractFile(TpcpTestCase):
         # save the working directory we were in before running this test
         cls._originaldir = os.getcwd()
         # TODO: update with the name of the test suite
-        cls._workdir = 'tar_tests/'
+        cls._workdir = 'pytestbed/tar_tests/'
         # create a new temp directory to do our work in
         cls._tmpdir = tempfile.TemporaryDirectory()
         
