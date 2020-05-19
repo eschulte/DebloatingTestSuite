@@ -27,8 +27,8 @@ def process_cmdline():
     parser = argparse.ArgumentParser(description=version_txt)
     parser.add_argument('--version', action='version', version='run_testbed.py --- '+version_txt)
     
-    parser.add_argument('--chmod', action='store', dest='chmod_path', metavar='PATH', default=argparse.SUPPRESS, help='run chmod tests on executable(s) at PATH')
-    parser.add_argument('--tar', action='store', dest='tar_path', metavar='PATH', default=argparse.SUPPRESS, help='run tar tests on executable(s) at PATH')
+    parser.add_argument('--chmod', action='store', dest='chmod_path', metavar='PATH', default=argparse.SUPPRESS, help='run chmod tests suite on a single executable at PATH')
+    parser.add_argument('--tar', action='store', dest='tar_path', metavar='PATH', default=argparse.SUPPRESS, help='run tar tests suite on a single executable at PATH')
     
     args = parser.parse_args()
     # returns a dict of the args set
@@ -42,7 +42,8 @@ def run_testbed():
     args = process_cmdline()
     
     if args == {}:
-        print("No arguments provided! Please provide at least one test suite to run.")
+        print("** No arguments provided! Canceling.")
+        print("Please provide at least one test suite option to run.")
         print("Rerun with the -h or --help option to get a list of possible test suites and options.")
         
     for option in [key for key in args if '_path' in key]:
