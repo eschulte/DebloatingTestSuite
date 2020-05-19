@@ -9,6 +9,8 @@ import warnings
 
 from typing import List, Tuple, Dict
 
+from os.path import abspath
+
 ###
 # Next actually run the tests
 ###
@@ -41,7 +43,7 @@ class TpcpTestCase(unittest.TestCase):
         # succeeds decides if this test case should succeed or not
         self.succeeds = succeeds
         # exe saves the name of the debloated executable file to run
-        self.exe = exe
+        self.exe = abspath(exe)
         
     # allows this test case to set whether it should pass or fail
     # depending on initial conditions
