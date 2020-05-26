@@ -33,9 +33,8 @@ class TestTarListFile(TpcpTestCase):
         subprocess.run(["cp", "./"+self._workdir+"test.tar", self._tmpdir.name])
         # run commands in temp dir
         os.chdir(self._tmpdir.name)
-        # real test: list, then cat extracted files to check correct extraction
-        subprocess.run([self.exe,"--list","--file=test.tar"])
-        output = subprocess.run(["cat","file1.txt","file2.txt"], capture_output=True)
-        self.assertBehavior(output.stdout, b'hello \nworld \n')
+        # real test: list files in an archive
+        output = subprocess.run([self.exe,"--list","--file=test.tar"], capture_output=True)
+        self.assertBehavior(output.stdout, b'file1.txt\nfile2.txt\n')
 
             

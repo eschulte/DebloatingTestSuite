@@ -34,7 +34,7 @@ class TestTarGetFile(TpcpTestCase):
         # run commands in temp dir
         os.chdir(self._tmpdir.name)
         # real test: get, then cat extracted files to check correct extraction
-        subprocess.run([self.exe,"--get","test.tar"])
+        subprocess.run([self.exe,"--get","-f","test.tar"])
         output = subprocess.run(["cat","file1.txt","file2.txt"], capture_output=True)
         self.assertBehavior(output.stdout, b'hello \nworld \n')
 

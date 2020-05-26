@@ -32,7 +32,7 @@ class TestTarUpdateFile(TpcpTestCase):
         # copy files to temp dir
         subprocess.run(["cp", "./"+self._workdir+"test.tar", self._tmpdir.name])
         with open(self._tmpdir.name+"/file1.txt", 'w') as f:
-            f.write("This is new file1 text")
+            f.write("This is new file1 text\n")
         # run commands in temp dir
         os.chdir(self._tmpdir.name)
         # real test: concat and extract, then cat extracted files to check correct extraction

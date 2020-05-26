@@ -36,9 +36,8 @@ class TestTarCreateDirFile(TpcpTestCase):
         # run commands in temp dir
         os.chdir(self._tmpdir.name)
         # real test: create tar from a dir of files, extract, cat and check contents are same
-        subprocess.run([self.exe,"--create","--file","tmpfilesdir/"])
-        subprocess.run(["tar","--extract","--file=test.tar"]) # use system tar since this isn't meant to test extract too
-        output = subprocess.run(["cat","file1.txt","file2.txt"], capture_output=True)
-        self.assertBehavior(output.stdout, b'hello \nworld \n')
+        subprocess.run([self.exe,"--create","--file","test.tar","tmpfilesdir/"])
+        output = subprocess.run(["tar","--list","--file=test.tar"], capture_output=True)
+        self.assertBehavior(output.stdout, b'tmpfilesdir/\ntmpfilesdir/file1.txt\ntmpfilesdir/file2.txt\n')
 
             
